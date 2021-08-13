@@ -35,7 +35,7 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <ul class="navbar-nav">
             {{-- 出品用ページへのリンク --}}
-            <li class="nav-item"><a href="#" class="nav-link">出品する</a></li>
+            <li class="nav-item">{!! link_to_route('items.create', '出品する', [], ['class' => 'nav-link']) !!}</li>
             {{-- マイページへのリンク --}}
             <li class="nav-item"><a href="#" class="nav-link">マイページ</a></li>
         </ul>

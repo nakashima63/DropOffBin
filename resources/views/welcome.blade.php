@@ -17,12 +17,13 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">詳細</button>
-                                        {!! link_to_route('item.details', '詳細', [], ['class' => 'btn btn-sm btn-outline-secondary']) !!}
+                                        
+                                        <a  href="{{ route('items.show', ['item' => $item->id]) }}" >
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">詳細</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            <small class="text-muted">9 mins</small>
                         </div>
                     </div>
                 </div>

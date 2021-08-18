@@ -25,7 +25,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'items/{id}'], function() {
-       Route::get('details', 'ItemsController@details')->name('items.details');
+       Route::get('show', 'ItemsController@show')->name('items.show');
     });
     Route::resource('users', 'UsersController');
     Route::resource('items', 'ItemsController');

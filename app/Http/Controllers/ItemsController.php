@@ -104,7 +104,7 @@ class ItemsController extends Controller
         return back();
     }
     
-    public function details($id)
+    public function show($id)
     {
         $item = Item::findOrFail($id);
         

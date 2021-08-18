@@ -10,7 +10,7 @@
         <div class="col-sm-6 offset-sm-3">
 
              
-            {!! Form::model($item, ['route' => 'items.store']) !!}
+            {!! Form::model($item, ['route' => 'items.store', 'enctype'=>'multipart/form-data']) !!}
                 <div class="form-group">
                     {!! Form::label('name', '名前') !!}
                     {!! Form::text('name', '出品物名', ['class' => 'form-control']) !!}

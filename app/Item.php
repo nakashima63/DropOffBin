@@ -18,4 +18,14 @@ class Item extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+    
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount('messages');
+    }
 }

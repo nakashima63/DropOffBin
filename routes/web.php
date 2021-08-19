@@ -26,7 +26,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'items/{id}'], function() {
        Route::get('show', 'ItemsController@show')->name('items.show');
+       Route::get('index', 'MessagesController@index')->name('message.index');
+       Route::post('store', 'MessagesController@store')->name('message.store');
     });
     Route::resource('users', 'UsersController');
     Route::resource('items', 'ItemsController');
+    Route::resource('messages', 'MessagesController');
 });

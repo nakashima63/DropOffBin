@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Item;
 use App\Category;
 use App\User;
+use App\Message;
 
 class ItemsController extends Controller
 {
@@ -107,9 +108,11 @@ class ItemsController extends Controller
     public function show($id)
     {
         $item = Item::findOrFail($id);
+        $messages = $item->messages()->orderBy('created_at', 'desc')->paginate(10);
         
         return view('items.show', [
             'item' => $item,
+            'messages' => $messages,
             ]);
     }
     

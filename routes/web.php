@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
        Route::get('index', 'MessagesController@index')->name('message.index');
        Route::post('store', 'MessagesController@store')->name('message.store');
     });
+    Route::get('mypage','ItemsController@mypage')->name('items.mypage');
     Route::resource('users', 'UsersController');
     Route::resource('items', 'ItemsController');
     Route::resource('messages', 'MessagesController');

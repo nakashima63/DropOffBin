@@ -108,12 +108,32 @@ class ItemsController extends Controller
     public function show($id)
     {
         $item = Item::findOrFail($id);
+        $user = $item->user();
         $messages = $item->messages()->orderBy('created_at', 'desc')->paginate(10);
         
         return view('items.show', [
             'item' => $item,
+            'user' => $user,
             'messages' => $messages,
             ]);
+    }
+    
+    public function mypage()
+    {
+        $data = [];
+        if (\Auth::check()) { // 認証済みの場合
+            
+            $user = \Auth::user();
+            $items = $user->items()->orderBy('created_at', 'desc')->paginate(10);
+
+            $data = [
+                'user' => $user,
+                'items' => $items,
+            ];
+        }
+
+        
+        return view('items.myitems', $data);
     }
     
     

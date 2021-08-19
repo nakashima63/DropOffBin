@@ -37,7 +37,7 @@
             {{-- 出品用ページへのリンク --}}
             <li class="nav-item">{!! link_to_route('items.create', '出品する', [], ['class' => 'nav-link']) !!}</li>
             {{-- マイページへのリンク --}}
-            <li class="nav-item"><a href="#" class="nav-link">マイページ</a></li>
+            <li class="nav-item">{!! link_to_route('items.mypage', 'マイページ', [], ['class' => 'nav-link']) !!}</li>
         </ul>
     </nav>
 </header>

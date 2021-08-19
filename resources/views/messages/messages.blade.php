@@ -23,7 +23,7 @@
                                 </div>
                                 
                                 <div>
-                                @if (Auth::id() == $message->user_id)
+                                @if (Auth::id() == $message->user_id || Auth::id() == $item->id)
                                     {{-- 投稿削除ボタンのフォーム --}}
                                     {!! Form::open(['route' => ['messages.destroy', $message->id], 'method' => 'delete']) !!}
                                         {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}

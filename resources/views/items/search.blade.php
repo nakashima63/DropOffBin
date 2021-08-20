@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>{{ $user->nickname }}さんが出品したもの</h1>
+<h1>検索結果</h1>
 @if (count($items) > 0)
-
     
         <div class="album py-5 bg-light">
             <div class="container">
@@ -23,7 +22,6 @@
                                         <a  href="{{ route('items.show', ['item' => $item->id]) }}" >
                                             <button type="button" class="btn btn-sm btn-outline-secondary">詳細</button>
                                         </a>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -34,5 +32,7 @@
                 </div>
             </div>
         </diV>
+    
+    
 @endif
 @endsection

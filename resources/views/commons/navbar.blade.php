@@ -7,10 +7,15 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <div class="post-search-form col-md-6">
+        <form class="form-inline" action="{{ route('items.search') }}">
+            <div class="form-group">
+                <input type="text" name="key"  class="form-control mr-sm-2" placeholder="検索" aria-label="Search">
+            </div>
+        　<input type="submit" value="検索" class="btn btn-outline-success my-2 my-sm-0">
         </form>
+        </div>
+
         
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>

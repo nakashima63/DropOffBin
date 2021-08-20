@@ -15,7 +15,7 @@
                             <div class="media-body">
                                 <div>
                                     <span class="text-muted">送信日 {{ $message->created_at }}</span>
-                                    <p class="mb-0"> 送信者 {{ $user->nickname }}</p>
+                                    <p class="mb-0"> 送信者 {{ $message->user->nickname }}</p>
                                 </div>
                                 <div>
                                 {{-- 投稿内容 --}}

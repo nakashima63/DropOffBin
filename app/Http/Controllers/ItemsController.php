@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use App\Item;
 use App\Category;
@@ -15,7 +16,7 @@ class ItemsController extends Controller
     public function index()
     {   
         //$items = Item::with('image_file_name')->get();
-        $items = Item::all();
+        $items = DB::table('items')->orderBy('created_at', 'desc')->paginate(10);
 //        dd($items);
         return view('welcome', ['items' => $items ]);
     }
@@ -90,20 +91,6 @@ class ItemsController extends Controller
 //        return view('welcome');
     }
     
-    // ひとまず出品を削除できる機能　後で変更
-    public function destroy($id)
-    {
-        // idの値で出品を検索して取得
-        $item = \App\Item::findOrFail($id);
-
-        // 認証済みユーザ（閲覧者）がその出品物の所有者である場合は、出品を削除
-        if (\Auth::id() === $item->user_id) {
-            $item->delete();
-        }
-
-        // 前のURLへリダイレクトさせる
-        return back();
-    }
     
     public function show($id)
     {
@@ -134,6 +121,39 @@ class ItemsController extends Controller
 
         
         return view('items.myitems', $data);
+    }
+    
+    public function search(Request $request)
+    {
+        
+        $key = $request->key;
+        $query = Item::query();
+        
+        if (!empty($key)) {
+            $query->where('name', 'like', '%' . $key . '%');
+        }
+        
+        $items = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        
+        return view('items.search', ['items'=>$items]);
+    }
+    
+    public function finish($id)
+    {
+        $item = Item::findOrFail($id);
+        $item->nego_status = true;
+        $user = $item->user();
+        $messages = $item->messages()->orderBy('created_at', 'desc')->paginate(10);
+        $nego_status = $item->nego_status;
+        
+        return view('items.show', [
+            'item' => $item,
+            'user' => $user,
+            'messages' => $messages,
+            '$nego_status' => $nego_status,
+            ]);
+        
     }
     
     

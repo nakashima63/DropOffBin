@@ -10,6 +10,7 @@ use App\Item;
 use App\Category;
 use App\User;
 use App\Message;
+use Storage;
 
 class ItemsController extends Controller
 {
@@ -33,27 +34,78 @@ class ItemsController extends Controller
     
     public function store(Request $request)
     {
-        //dd($request->all());
         
         $request->validate([
             'image_file_name' => ['file', 'mimes:jpeg,png,jpg,bmb', 'max:2048'],
             'name' => ['required','string','max:255'],
             'description' => ['required','string'],
             'category_id' => 'required',
-            
         ]);
         
+        //dd($request->all());
+        
         if($file = $request->image_file_name){
+            
 
             $fileName =time(). '.' .$file->getClientOriginalExtension();
             
-            $target_path = public_path('/uploads/');
-            $file->move($target_path,$fileName);
+            //$target_path = public_path('/uploads/');
+            
+            
+            //$file->move($target_path,$fileName);
+            
+            
     
         }else{
-            $name = "";
+            $fileName = "";
+        }
+        // dd($request->name);
+        $item = $request->user()->items()->create([
+            'image_file_name' => $fileName,
+            'name' => $request->name,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'time_limit' => $request->time_limit,
+        ]);
+        
+        
+        
+        
+        if ($request->hasFile('image_file_name')) {
+            
+            
+            $image = $request->file('image_file_name');
+            $path = Storage::disk('s3')->putFile('myprefix', $image, 'public');
+            $item->imgpath = Storage::disk('s3')->url($path);
+            $imgpath = $item->imgpath;
+            $item->save();
+    
+        }else{
+            $fileName = "";
         }
         
+        
+        
+        
+        
+        
+        /**
+        if($file = $request->image_file_name){
+            
+
+            $fileName =time(). '.' .$file->getClientOriginalExtension();
+            
+            //$target_path = public_path('/uploads/');
+            
+            
+            //$file->move($target_path,$fileName);
+            
+            
+    
+        }else{
+            $fileName = "";
+        }
+        // dd($request->name);
         $request->user()->items()->create([
             'image_file_name' => $fileName,
             'name' => $request->name,
@@ -61,6 +113,8 @@ class ItemsController extends Controller
             'category_id' => $request->category_id,
             'time_limit' => $request->time_limit,
         ]);
+        
+        **/
         
         /**
         $file_name = time() . '.' . request()->image_file_name->getClientOriginalName();
@@ -83,12 +137,9 @@ class ItemsController extends Controller
         
         **/
         
-        
-        
-        
         // 前のURLへリダイレクトさせる
         return redirect('/');
-//        return view('welcome');
+        // return view('welcome');
     }
     
     
@@ -146,6 +197,7 @@ class ItemsController extends Controller
         $user = $item->user();
         $messages = $item->messages()->orderBy('created_at', 'desc')->paginate(10);
         $nego_status = $item->nego_status;
+        $item->save();
         
         return view('items.show', [
             'item' => $item,

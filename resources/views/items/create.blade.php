@@ -13,7 +13,7 @@
             {!! Form::model($item, ['route' => 'items.store', 'enctype'=>'multipart/form-data']) !!}
                 <div class="form-group">
                     {!! Form::label('name', '名前') !!}
-                    {!! Form::text('name', '出品物名', ['class' => 'form-control']) !!}
+                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => '出品物名']) !!}
                 </div>
 
                 <div class="form-group">

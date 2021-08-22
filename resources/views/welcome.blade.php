@@ -17,7 +17,7 @@
                     <div class="col-md-3">
                         <div class="card mb-4 shadow-sm">
                         @if(isset( $item->image_file_name ))
-                        <img class="card-img-top" src="{{ asset('/uploads/' . $item->image_file_name) }}" alt="Card image cap">
+                        <img class="card-img-top" src="{{ asset( $item->imgpath ) }}" alt="Card image cap">
                         @else
                         @endif
                             <div class="card-body">
